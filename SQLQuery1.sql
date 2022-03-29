@@ -7,13 +7,13 @@ GO
 
 CREATE TABLE dbo.movie(
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Title varchar(100) NOT NULL,
 	Director_id int NULL,
 	Studio_id int NULL,
 	Country_id int NULL,
 	Language_id int NULL,
 	Genre_id int NULL,
 	Age_verification int NULL,
-	Title varchar(100) NOT NULL,
 	Box_office int NULL,
 	Release_date date NULL,
 	Oscar_wins tinyint NULL,
@@ -25,8 +25,8 @@ CREATE TABLE dbo.actor(
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Full_name varchar(80) NOT NULL,
 	Gender varchar(15) NOT NULL,
-	Date_of_birth datetime NOT NULL,
-	Date_of_death datetime NULL,
+	Date_of_birth date NOT NULL,
+	Date_of_death date NULL,
 )
 GO
 
@@ -58,9 +58,9 @@ CREATE TABLE dbo.country(
 )
 GO
 
-CREATE TABLE dbo.rating(
+CREATE TABLE dbo.age_verification(
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	Rating varchar(25) NOT NULL
+	Age_verification varchar(25) NOT NULL
 )
 
 GO
@@ -83,7 +83,7 @@ GO
 
 --adding values to our tables
 
-INSERT INTO actor (Full_name, Gender, Date_of_birth, Date_of_death) VALUES 
+INSERT INTO actor(Full_name, Gender, Date_of_birth, Date_of_death) VALUES 
 ('Joaquin Phoenix','Male','1974-10-28',NULL),
 ('Jack Nicholson','Male','1937-04-22',NULL),
 ('Leonardo DiCaprio','Male','1974-11-11',NULL),
@@ -92,7 +92,7 @@ INSERT INTO actor (Full_name, Gender, Date_of_birth, Date_of_death) VALUES
 ('Alan Rickman','Male','1974-10-28','2016-01-14'),
 ('Tom Hanks','Male','1956-07-09',NULL),
 ('Louis de Funès','Male','1914-07-31','1983-01-27'),
-('Kevin Spacey','Male','1959-97-26',NULL),
+('Kevin Spacey','Male','1959-07-26',NULL),
 ('Ian McKellen','Male','1939-05-25',NULL),
 ('Johnny Depp','Male','1963-06-09',NULL),
 ('Margot Robbie','Female','1990-07-02',NULL),
@@ -119,7 +119,6 @@ INSERT INTO genre (Genre) VALUES
 ('Thriller'),
 ('Horror'),
 ('Family'),
-('Horror'),
 ('Documentary'),
 ('Musical'),
 ('Crime'),
@@ -159,14 +158,60 @@ INSERT INTO studio (Studio) VALUES
 ('Warner Bros. Pictures'),
 ('Pixar Animation Studios'),
 ('Revolution Studios'),
-('Sony Pictures')
+('Sony Pictures'),
+('TriStar Pictures')
 
 
-INSERT INTO rating (Rating) VALUES
+INSERT INTO Age_verification(Age_verification) VALUES
 ('U'),
 ('PG'),
 ('12'),
 ('12A'),
 ('15'),
 ('18')
+
+INSERT INTO	country(Country) VALUES
+('United States'),
+('United Kingdom'),
+('France'),
+('China'),
+('Germany'),
+('Australia'),
+('Canada'),
+('Poland'),
+('Brazil'),
+('Hong Kong'),
+('Italy'),
+('New Zealand'),
+('Finland'),
+('Japan'),
+('Portugal')
+
+INSERT INTO  director(Full_name, Gender, Date_of_birth, Date_of_death) VALUES
+('Gore Verbinski', 'Male','1964-03-16',NULL),
+('Stanley Kubrick', 'Male','1928-07-26','1999-03-07'),
+('Quentin Tarantino', 'Male','1963-03-27',NULL),
+('Christopher Nolan', 'Male','1970-07-30',NULL),
+('Frank Darabont', 'Male','1959-01-28',NULL),
+('James Cameron', 'Male','1954-08-16',NULL),
+('Peter Jackson', 'Male','1961-10-31',NULL),
+('Clint Eastwood', 'Male','1930-05-31',NULL),
+('Steven Spielberg', 'Male','1946-12-18',NULL),
+('Anthony Russo', 'Male','1970-02-03',NULL),
+('Alfonso Cuarón', 'Male','1961-11-28',NULL),
+('David Fincher', 'Male','1962-08-28',NULL),
+('Damien Chazelle', 'Male','1985-01-19',NULL),
+('Francis Lawrence', 'Male','1971-03-26',NULL),
+('Martin Scorsese', 'Male','1942-11-17',NULL),
+('Jean Girault', 'Male','1924-05-09','1982-07-24'),
+('Jan De Bont', 'Male','1943-10-22',NULL),
+('Ridley Scott', 'Male','1937-11-30',NULL),
+('Todd Phillips', 'Male','1970-12-20',NULL),
+('David O. Russell', 'Male','1958-08-20',NULL),
+('Bryan Singer', 'Male','1965-09-17',NULL),
+('Woody Allen', 'Male','1935-12-01',NULL),
+('James L.Brooks', 'Male', '1940-05-09', NULL)
+
+
+
 
