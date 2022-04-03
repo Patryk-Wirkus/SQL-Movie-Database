@@ -125,7 +125,8 @@ INSERT INTO genre (Genre) VALUES
 ('History'),
 ('Fantasy'),
 ('Animation'),
-('Romantic Comedy')
+('Romantic Comedy'),
+('Biography')
 
 
 INSERT INTO language (Language) VALUES
@@ -159,12 +160,17 @@ INSERT INTO studio (Studio) VALUES
 ('Pixar Animation Studios'),
 ('Revolution Studios'),
 ('Sony Pictures'),
-('TriStar Pictures')
+('TriStar Pictures'),
+('TriBeCa Productions'),
+('Franca Films'),
+('Imagine Entertainment'),
+('Imagenation Abu Dhabi FZ'),
+('Black Label Media')
 
 
 INSERT INTO Age_verification(Age_verification) VALUES
 ('U'),
-('PG'),
+('PG-13'),
 ('12'),
 ('12A'),
 ('15'),
@@ -210,7 +216,100 @@ INSERT INTO  director(Full_name, Gender, Date_of_birth, Date_of_death) VALUES
 ('David O. Russell', 'Male','1958-08-20',NULL),
 ('Bryan Singer', 'Male','1965-09-17',NULL),
 ('Woody Allen', 'Male','1935-12-01',NULL),
-('James L.Brooks', 'Male', '1940-05-09', NULL)
+('James L.Brooks', 'Male', '1940-05-09', NULL),
+('David Yates', 'Male', '1962-11-30', NULL),
+('David Frankel','Male', '1959-04-02', NULL),
+('James Ponsoldt', 'Male', '1978-02-15', NULL),
+('Ryan Murphy', 'Male', '2010-08-13', NULL),
+('Cate Shortland', 'Female', '1968-08-10', NULL)
+
+
+
+INSERT INTO movie(Title,Director_id,Studio_id,Country_id,Language_id,Genre_id,Age_verification,Box_office,Release_date,Oscar_wins,Run_time) VALUES
+('Joker', 19, 15, 1, 1, 2, 6, 1074419384, '2019-08-31', 2, 124),
+('Irrational Man', 22, 18, 1, 1, 2, 5, 27391084, '2015-05-15', 0, 96),
+('The Shining', 2, 15, 1, 1, 10, 6, 44360123, '1980-05-23', 0, 146),
+('As Good As It Gets', 23, 19, 1, 1, 7, 4, 314178011, '1997-12-06', 2, 139),
+('Once Upon a Time in... Hollywood', 3, 18, 1, 1, 2, 5, 374343626, '2019-05-21', 2, 161),
+('Titanic', 6, 12, 1, 1, 2, 4, 2201647264, '1997-11-01', 11, 194),
+('House of Gucci', 18, 9, 1, 1, 2, 6, 154075986, '2021-11-24', 0, 157),
+('The Irishman', 15, 20, 1, 1, 14, 6, 800000,'2019-08-27', 0, 210),
+('The Wolf of Wall Street', 15, 12, 1, 1, 19, 3, 392000694, '2013-12-09', 0, 179),
+('The Mule', 8, 15, 1, 1, 14, 5, 174504407, '2018-12-10', 0, 116),
+('Harry Potter and the Order of the Phoenix', 24, 15, 1, 1, 3, 3, 942172396, '2007-06-28', 0, 138),
+('Sully', 8, 15, 1, 1, 2, 3, 238470033, '2016-09-08', 0, 96),
+('La Gandarme de Saint-Tropez', 16, 21, 3, 3, 7, 3, 7809517, '1964-09-09', 0, 95),
+('Superman Returns', 21, 15, 1, 1, 3, 2, 391081192, '2006-06-21', 0, 154),
+('The Hobbit: The Battle of the Five Armies', 7, 9, 12, 1, 3, 2, 962182865, '2014-12-01', 0, 144),
+('Fantastic Beasts: The Crimes of Grindelwald', 24, 15, 1, 1, 3, 2, 654855901, '2018-11-08', 0, 134),
+('Changeling', 8, 22, 1, 1, 2, 6, 113020256, '2008-05-20', 0, 140),
+('Marley & Me', 25, 1, 1, 1, 18, 3, 242717113, '2008-12-25', 0, 120),
+('The Circle', 26, 23, 1, 1, 9, 2, 20497844, '2017-04-26', 0, 110),
+('LA LA LAND', 13, 24, 1, 1, 13, 3, 448864344, '2016-08-31', 0, 126),
+('Eat Pray Love', 27, 3, 1, 1, 2, 2, 204594016, '2010-08-13', 0, 133),
+('X-Men: Apocalypse', 21, 1, 1, 1, 3, 5, 543934105, '2016-05-09', 0, 144),
+('Black Widow', 28, 8, 1, 1, 3, 2, 379631351, '2021-07-03', 0, 133),
+('Gravity', 11, 15, 1, 1, 3, 2, 723192705, '2013-08-28', 7, 90)
+
+
+INSERT INTO role(Role,Actor_id,Movie_id) VALUES
+('Joker', 1, 1),
+('Abe', 1, 2),
+('Jill', 16, 2),
+('Jack Torrance', 2, 3),
+('Melvin Udall', 2, 4),
+('Rick Dalton', 3, 5),
+('Sharon Tate', 12, 5),
+('Marvin Schawarz', 4, 5),
+('Jack Dawson', 3, 6),
+('Aldo Gucci', 4, 7),
+('Jimmy Hoffa', 4, 8),
+('Jordan Belfort', 3, 9),
+('Earl Stone', 5, 10),
+('Professor Severus Snape', 6, 11),
+('Hermoiona Granger', 15, 11),
+('Chesley Sullenberger', 7, 12),
+('Inscpector Ludovic Cruchot', 8, 13),
+('Lex Luthor', 9, 14),
+('Gandalf the Grey', 10, 15),
+('Gellert Grindewald', 11, 16),
+('Christine Collins', 13, 17),
+('Jennifer Grogan', 14, 18),
+('Mae', 15, 19),
+('Bailey', 7, 19),
+('Mia', 16, 20),
+('Liz Gilbert', 17, 21),
+('Raven', 18, 22),
+('Black Widow', 19, 23),
+('Ryan Stone', 20, 24)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
