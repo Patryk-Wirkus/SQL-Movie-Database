@@ -1,4 +1,4 @@
---let's create our database
+--let's create our database--
 CREATE DATABASE Movies
 GO
 
@@ -6,82 +6,91 @@ USE Movies
 GO
 
 CREATE TABLE dbo.movie(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	MovieID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Title varchar(100) NOT NULL,
-	Director_id int NULL,
-	Studio_id int NULL,
-	Country_id int NULL,
-	Language_id int NULL,
-	Genre_id int NULL,
+	DirectorID int NULL,
+	StudioID int NULL,
+	CountryID int NULL,
+	LanguageID int NULL,
+	GenreID int NULL,
 	Age_verification int NULL,
 	Box_office int NULL,
 	Release_date date NULL,
 	Oscar_wins tinyint NULL,
-	Run_time smallint NULL,
+	Run_time smallint NULL
 )
 GO
 
 CREATE TABLE dbo.actor(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	ActorID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Full_name varchar(80) NOT NULL,
 	Gender varchar(15) NOT NULL,
 	Date_of_birth date NOT NULL,
-	Date_of_death date NULL,
+	Date_of_death date NULL
 )
 GO
 
 CREATE TABLE dbo.director(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	DirectorID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Full_name varchar(80) NOT NULL,
 	Gender varchar(15) NOT NULL,
 	Date_of_birth date NOT NULL,
 	Date_of_death date NULL,
+	FOREIGN KEY(DirectorID) REFERENCES dbo.director(DirectorID)
 )
 GO
 
 CREATE TABLE dbo.genre(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	Genre varchar(50) NOT NULL
+	GenreID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Genre varchar(50) NOT NULL,
+	FOREIGN KEY(GenreID) REFERENCES dbo.genre(GenreID)
 )
 GO
 
 CREATE TABLE dbo.language(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	Language varchar(80) NOT NULL
+	LanguageID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Language varchar(80) NOT NULL,
+	FOREIGN KEY(LanguageID) REFERENCES dbo.language(LanguageID)
 )
 
 GO
 
 CREATE TABLE dbo.country(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	Country varchar(100) NOT NULL
+	CountryID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Country varchar(100) NOT NULL,
+	FOREIGN KEY(CountryID) REFERENCES dbo.country(CountryID)
 )
 GO
 
 CREATE TABLE dbo.age_verification(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	Age_verification varchar(25) NOT NULL
+	Age_verificationID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Age_verification varchar(25) NOT NULL,
+	FOREIGN KEY(Age_verificationID) REFERENCES dbo.age_verification(Age_verificationID)
+	
 )
 
 GO
 
 CREATE TABLE dbo.studio(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	Studio varchar(50) NOT NULL
+	StudioID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	Studio varchar(50) NOT NULL,
+	FOREIGN KEY(StudioID) REFERENCES dbo.studio(StudioID)
 )
 
 GO
 
 CREATE TABLE dbo.role(
-	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	RoleID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Role varchar(100) NOT NULL,
-	Actor_id int NULL,
-	Movie_id int NULL
+	ActorID int NULL,
+	MovieID int NULL,
+	FOREIGN KEY(ActorID) REFERENCES dbo.actor(ActorID),
+	FOREIGN KEY(MovieID) REFERENCES dbo.movie(MovieID)
 )
 
 GO
 
---adding values to our tables
+--adding values to our tables--
 
 INSERT INTO actor(Full_name, Gender, Date_of_birth, Date_of_death) VALUES 
 ('Joaquin Phoenix','Male','1974-10-28',NULL),
@@ -225,13 +234,13 @@ INSERT INTO  director(Full_name, Gender, Date_of_birth, Date_of_death) VALUES
 
 
 
-INSERT INTO movie(Title,Director_id,Studio_id,Country_id,Language_id,Genre_id,Age_verification,Box_office,Release_date,Oscar_wins,Run_time) VALUES
+INSERT INTO movie(Title,DirectorID,StudioID,CountryID,LanguageID,GenreID,Age_verification,Box_office,Release_date,Oscar_wins,Run_time) VALUES
 ('Joker', 19, 15, 1, 1, 2, 6, 1074419384, '2019-08-31', 2, 124),
 ('Irrational Man', 22, 18, 1, 1, 2, 5, 27391084, '2015-05-15', 0, 96),
 ('The Shining', 2, 15, 1, 1, 10, 6, 44360123, '1980-05-23', 0, 146),
 ('As Good As It Gets', 23, 19, 1, 1, 7, 4, 314178011, '1997-12-06', 2, 139),
 ('Once Upon a Time in... Hollywood', 3, 18, 1, 1, 2, 5, 374343626, '2019-05-21', 2, 161),
-('Titanic', 6, 12, 1, 1, 2, 4, 2201647264, '1997-11-01', 11, 194),
+('Titanic', 6, 12, 1, 1, 2, 4, 220164726, '1997-11-01', 11, 194),
 ('House of Gucci', 18, 9, 1, 1, 2, 6, 154075986, '2021-11-24', 0, 157),
 ('The Irishman', 15, 20, 1, 1, 14, 6, 800000,'2019-08-27', 0, 210),
 ('The Wolf of Wall Street', 15, 12, 1, 1, 19, 3, 392000694, '2013-12-09', 0, 179),
@@ -252,7 +261,7 @@ INSERT INTO movie(Title,Director_id,Studio_id,Country_id,Language_id,Genre_id,Ag
 ('Gravity', 11, 15, 1, 1, 3, 2, 723192705, '2013-08-28', 7, 90)
 
 
-INSERT INTO role(Role,Actor_id,Movie_id) VALUES
+INSERT INTO role(Role,ActorID,MovieID) VALUES
 ('Joker', 1, 1),
 ('Abe', 1, 2),
 ('Jill', 16, 2),
@@ -282,6 +291,18 @@ INSERT INTO role(Role,Actor_id,Movie_id) VALUES
 ('Raven', 18, 22),
 ('Black Widow', 19, 23),
 ('Ryan Stone', 20, 24)
+
+--QUERY QUESTIONS--
+
+SELECT Title, Studio, Full_name as Reżyser
+FROM movie
+ JOIN director ON movie.DirectorID = director.DirectorID 
+ JOIN studio ON movie.StudioID = studio.StudioID
+ WHERE Oscar_wins >= 0 and director.Full_name = 'Clint Eastwood'
+
+
+
+	
 
 
 
