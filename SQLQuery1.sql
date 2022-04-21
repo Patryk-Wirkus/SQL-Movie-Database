@@ -244,7 +244,7 @@ INSERT INTO movie(Title,DirectorID,StudioID,CountryID,LanguageID,GenreID,Age_ver
 ('House of Gucci', 18, 9, 1, 1, 2, 6, 154075986, '2021-11-24', 0, 157),
 ('The Irishman', 15, 20, 1, 1, 14, 6, 800000,'2019-08-27', 0, 210),
 ('The Wolf of Wall Street', 15, 12, 1, 1, 19, 3, 392000694, '2013-12-09', 0, 179),
-('The Mule', 8, 15, 1, 1, 14, 5, 174504407, '2018-12-10', 0, 116),
+('The Mule', 8, 15, 1, 1, 14, 5, 174504407, '2018-12-10', 1, 116),
 ('Harry Potter and the Order of the Phoenix', 24, 15, 1, 1, 3, 3, 942172396, '2007-06-28', 0, 138),
 ('Sully', 8, 15, 1, 1, 2, 3, 238470033, '2016-09-08', 0, 96),
 ('La Gandarme de Saint-Tropez', 16, 21, 3, 3, 7, 3, 7809517, '1964-09-09', 0, 95),
@@ -294,12 +294,33 @@ INSERT INTO role(Role,ActorID,MovieID) VALUES
 
 --QUERY QUESTIONS--
 
-SELECT Title, Studio, Full_name as Reżyser
-FROM movie
- JOIN director ON movie.DirectorID = director.DirectorID 
- JOIN studio ON movie.StudioID = studio.StudioID
- WHERE Oscar_wins >= 0 and director.Full_name = 'Clint Eastwood'
+SELECT Title, Studio, Oscar_wins, Full_name as Reżyser
+	FROM movie
+		JOIN director ON movie.DirectorID = director.DirectorID 
+		JOIN studio ON movie.StudioID = studio.StudioID
+	WHERE Oscar_wins >= 0 and director.Full_name = 'Clint Eastwood'
 
+
+Select Title, Genre, Release_date, Language
+	FROM movie
+		JOIN genre ON movie.GenreID = genre.GenreID
+		JOIN language ON movie.LanguageID = language.LanguageID
+	WHERE Language != 'English'
+
+Select Title, Country, Studio, Run_time, Full_name as Reżyser	  
+	FROM movie
+		JOIN country ON movie.CountryID = country.CountryID
+		JOIN director ON movie.DirectorID = director.DirectorID
+		JOIN studio ON movie.StudioID = studio.StudioID
+	WHERE Run_time BETWEEN 90 AND 164
+	ORDER BY Run_time DESC
+	
+
+		
+
+	
+		
+		
 
 
 	
