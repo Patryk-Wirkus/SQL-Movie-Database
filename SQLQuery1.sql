@@ -90,7 +90,7 @@ CREATE TABLE dbo.role(
 
 GO
 
---adding values to our tables--
+--Adding values to our tables--
 
 INSERT INTO actor(Full_name, Gender, Date_of_birth, Date_of_death) VALUES 
 ('Joaquin Phoenix','Male','1974-10-28',NULL),
@@ -294,12 +294,12 @@ INSERT INTO role(Role,ActorID,MovieID) VALUES
 
 --QUERY QUESTIONS--
 
-SELECT Title, Studio, Oscar_wins, Full_name as Reżyser
+SELECT Title, Studio, Oscar_wins, Full_name AS Reżyser
 	FROM movie
-		JOIN director ON movie.DirectorID = director.DirectorID 
+		JOIN director ON movie.DirectorID = director.DirectorID
 		JOIN studio ON movie.StudioID = studio.StudioID
 	WHERE Oscar_wins >= 0 and director.Full_name = 'Clint Eastwood'
-
+	
 
 Select Title, Genre, Release_date, Language
 	FROM movie
@@ -307,23 +307,29 @@ Select Title, Genre, Release_date, Language
 		JOIN language ON movie.LanguageID = language.LanguageID
 	WHERE Language != 'English'
 
+
 Select Title, Country, Studio, Run_time, Full_name as Reżyser	  
-	FROM movie
+	FROM movie 
 		JOIN country ON movie.CountryID = country.CountryID
 		JOIN director ON movie.DirectorID = director.DirectorID
 		JOIN studio ON movie.StudioID = studio.StudioID
 	WHERE Run_time BETWEEN 90 AND 164
 	ORDER BY Run_time DESC
 	
+Select Title, Role, Full_name AS Played_by, Release_date
+	FROM role
+		JOIN actor ON role.ActorID = actor.ActorID
+		JOIN movie ON role.MovieID = movie.MovieID
+	WHERE Title LIKE 'T__%' 
+	ORDER BY Release_date		
 
-		
+Select Title, Run_time, Genre, Full_name as Director
+	FROM movie
+		JOIN genre ON movie.GenreID = genre.GenreID
+		JOIN director ON movie.DirectorID = director.DirectorID
+	WHERE Run_time > 120 AND Genre = 'Drama' OR Genre = 'Science fiction'	
+	ORDER BY Box_office ASC
 
-	
-		
-		
-
-
-	
 
 
 
