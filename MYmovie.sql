@@ -1,8 +1,8 @@
 --let's create our database--
-CREATE DATABASE Movies
+CREATE DATABASE MYmovie
 GO
 
-USE Movies
+USE MYmovie
 GO
 
 CREATE TABLE dbo.movie(
@@ -13,7 +13,7 @@ CREATE TABLE dbo.movie(
 	CountryID int NULL,
 	LanguageID int NULL,
 	GenreID int NULL,
-	Age_verification int NULL,
+	Age_verificationID int NULL,
 	Box_office int NULL,
 	Release_date date NULL,
 	Oscar_wins tinyint NULL,
@@ -36,21 +36,18 @@ CREATE TABLE dbo.director(
 	Gender varchar(15) NOT NULL,
 	Date_of_birth date NOT NULL,
 	Date_of_death date NULL,
-	FOREIGN KEY(DirectorID) REFERENCES dbo.director(DirectorID)
 )
 GO
 
 CREATE TABLE dbo.genre(
 	GenreID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Genre varchar(50) NOT NULL,
-	FOREIGN KEY(GenreID) REFERENCES dbo.genre(GenreID)
 )
 GO
 
 CREATE TABLE dbo.language(
 	LanguageID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Language varchar(80) NOT NULL,
-	FOREIGN KEY(LanguageID) REFERENCES dbo.language(LanguageID)
 )
 
 GO
@@ -58,23 +55,20 @@ GO
 CREATE TABLE dbo.country(
 	CountryID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Country varchar(100) NOT NULL,
-	FOREIGN KEY(CountryID) REFERENCES dbo.country(CountryID)
 )
 GO
 
 CREATE TABLE dbo.age_verification(
 	Age_verificationID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	Age_verification varchar(25) NOT NULL,
-	FOREIGN KEY(Age_verificationID) REFERENCES dbo.age_verification(Age_verificationID)
-	
+	Age_verification varchar(25) NOT NULL,	
 )
 
 GO
 
 CREATE TABLE dbo.studio(
 	StudioID int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	Studio varchar(50) NOT NULL,
-	FOREIGN KEY(StudioID) REFERENCES dbo.studio(StudioID)
+	Studio varchar(50) NOT NULL,	
+	
 )
 
 GO
@@ -84,9 +78,19 @@ CREATE TABLE dbo.role(
 	Role varchar(100) NOT NULL,
 	ActorID int NULL,
 	MovieID int NULL,
-	FOREIGN KEY(ActorID) REFERENCES dbo.actor(ActorID),
-	FOREIGN KEY(MovieID) REFERENCES dbo.movie(MovieID)
 )
+
+GO
+
+--All foreign keys in one place for better management--
+ALTER TABLE dbo.movie WITH CHECK ADD CONSTRAINT FK_Age_Restriction FOREIGN KEY(Age_verificationID) REFERENCES dbo.age_verification(Age_verificationID);
+ALTER TABLE dbo.movie WITH CHECK ADD CONSTRAINT FK_Director FOREIGN KEY(DirectorID) REFERENCES dbo.director(DirectorID);
+ALTER TABLE dbo.movie WITH CHECK ADD CONSTRAINT FK_Genre FOREIGN KEY(GenreID) REFERENCES dbo.genre(GenreID);
+ALTER TABLE dbo.movie WITH CHECK ADD CONSTRAINT FK_Langauge FOREIGN KEY(LanguageID) REFERENCES dbo.language(LanguageID);
+ALTER TABLE dbo.movie WITH CHECK ADD CONSTRAINT FK_Country FOREIGN KEY(CountryID) REFERENCES dbo.country(CountryID);
+ALTER TABLE dbo.movie WITH CHECK ADD CONSTRAINT FK_Studio FOREIGN KEY(StudioID) REFERENCES dbo.studio(StudioID);
+ALTER TABLE dbo.role WITH CHECK ADD CONSTRAINT FK_Actor FOREIGN KEY(ActorID) REFERENCES dbo.actor(ActorID);
+ALTER TABLE dbo.role  WITH CHECK ADD CONSTRAINT FK_Movie FOREIGN KEY(MovieID) REFERENCES dbo.movie(MovieID);
 
 GO
 
@@ -114,8 +118,6 @@ INSERT INTO actor(Full_name, Gender, Date_of_birth, Date_of_death) VALUES
 ('Scarlett Johansson','Female','1984-11-22',NULL),
 ('Sandra Bullock','Female','1964-07-26',NULL)
 
-
-
 INSERT INTO genre (Genre) VALUES
 ('Western'),
 ('Drama'),
@@ -136,7 +138,6 @@ INSERT INTO genre (Genre) VALUES
 ('Animation'),
 ('Romantic Comedy'),
 ('Biography')
-
 
 INSERT INTO language (Language) VALUES
 ('English'),
@@ -232,9 +233,7 @@ INSERT INTO  director(Full_name, Gender, Date_of_birth, Date_of_death) VALUES
 ('Ryan Murphy', 'Male', '2010-08-13', NULL),
 ('Cate Shortland', 'Female', '1968-08-10', NULL)
 
-
-
-INSERT INTO movie(Title,DirectorID,StudioID,CountryID,LanguageID,GenreID,Age_verification,Box_office,Release_date,Oscar_wins,Run_time) VALUES
+INSERT INTO movie(Title,DirectorID,StudioID,CountryID,LanguageID,GenreID,Age_verificationID,Box_office,Release_date,Oscar_wins,Run_time) VALUES
 ('Joker', 19, 15, 1, 1, 2, 6, 1074419384, '2019-08-31', 2, 124),
 ('Irrational Man', 22, 18, 1, 1, 2, 5, 27391084, '2015-05-15', 0, 96),
 ('The Shining', 2, 15, 1, 1, 10, 6, 44360123, '1980-05-23', 0, 146),
@@ -259,7 +258,6 @@ INSERT INTO movie(Title,DirectorID,StudioID,CountryID,LanguageID,GenreID,Age_ver
 ('X-Men: Apocalypse', 21, 1, 1, 1, 3, 5, 543934105, '2016-05-09', 0, 144),
 ('Black Widow', 28, 8, 1, 1, 3, 2, 379631351, '2021-07-03', 0, 133),
 ('Gravity', 11, 15, 1, 1, 3, 2, 723192705, '2013-08-28', 7, 90)
-
 
 INSERT INTO role(Role,ActorID,MovieID) VALUES
 ('Joker', 1, 1),
@@ -308,57 +306,27 @@ Select Title, Genre, Release_date, Language
 	WHERE Language != 'English'
 
 
-Select Title, Country, Studio, Run_time, Full_name as Reżyser	  
+Select Title, Country, Studio, Run_time, Full_name AS Director 
 	FROM movie 
 		JOIN country ON movie.CountryID = country.CountryID
 		JOIN director ON movie.DirectorID = director.DirectorID
 		JOIN studio ON movie.StudioID = studio.StudioID
 	WHERE Run_time BETWEEN 90 AND 164
 	ORDER BY Run_time DESC
+
 	
 Select Title, Role, Full_name AS Played_by, Release_date
 	FROM role
 		JOIN actor ON role.ActorID = actor.ActorID
 		JOIN movie ON role.MovieID = movie.MovieID
 	WHERE Title LIKE 'T__%' 
-	ORDER BY Release_date		
+	ORDER BY Release_date	
+	
 
-Select Title, Run_time, Genre, Full_name as Director
+Select Title, Run_time, Genre, Full_name AS Director
 	FROM movie
 		JOIN genre ON movie.GenreID = genre.GenreID
 		JOIN director ON movie.DirectorID = director.DirectorID
 	WHERE Run_time > 120 AND Genre = 'Drama' OR Genre = 'Science fiction'	
 	ORDER BY Box_office ASC
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
