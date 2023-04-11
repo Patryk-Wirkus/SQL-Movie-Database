@@ -2,17 +2,32 @@
 The database relates to cinematography.
 ## About
 A project designed to practice and expand my SQL skills. The database contains a collection of my favorite movies that I have recently watched.
-## Database diagram 
-![Ssms_4KqRHdapgz](https://user-images.githubusercontent.com/62354048/174399106-df478524-1fc3-42c9-ac18-7d1a60cf3f73.png)
+## ER Diagram
+![ER - diagram](https://user-images.githubusercontent.com/62354048/230727751-0eef7227-a04f-4d1d-a899-4626d4d7f55f.png)
+
 ## Query Examples
-![Ssms_gkIAutDEqE](https://user-images.githubusercontent.com/62354048/174405158-0903d42d-16a5-4ce7-b341-719306c750c8.png)
+Input:
 
-output:
+![Querry_1](https://user-images.githubusercontent.com/62354048/230728310-d7009412-2df7-4d9a-86a1-444173bae39a.png)
 
-![Ssms_C24a2OQC8T](https://user-images.githubusercontent.com/62354048/174405360-bc5a34b6-1cdc-4f16-9f3e-b8f2aff29c1e.png)
+Output:
 
-![Ssms_HUmPerMi8n](https://user-images.githubusercontent.com/62354048/174405844-f37f31c6-ac5e-40e0-9d95-8e98280e0b2f.png)
+![Output_Querry_1](https://user-images.githubusercontent.com/62354048/230728852-226bfa51-c2fa-4b7a-9bc5-4bf12b7c3773.png)
 
-output:
+Input:
 
-![Ssms_ZmwzqEeHj5](https://user-images.githubusercontent.com/62354048/174406128-9c22dc30-9681-423a-bfce-4a9520b8744e.png)
+![Querry_2](https://user-images.githubusercontent.com/62354048/230728665-d0cc0990-13d0-48af-8ed2-207441398af8.png)
+
+Output:
+
+![Output_Querry_2](https://user-images.githubusercontent.com/62354048/230728745-3ed4d770-d542-4935-bed3-18e32b41ab84.png)
+
+## Stored Procedure Example
+Input:
+
+![stored](https://user-images.githubusercontent.com/62354048/230732564-977db300-e5f8-41a1-a9a9-d59ed1bba34b.png)
+
+Output:
+
+![Output_stored](https://user-images.githubusercontent.com/62354048/230732605-b102d8b5-9175-4402-9712-abb6ff09a107.png)
+
